@@ -80,7 +80,7 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
     private Renderable mAnchorRenderable;
 
     private String mChatLog;
-    private List<StudyNode> mStudyNodes;
+    public List<StudyNode> mStudyNodes;
     private View mDialogView;
 
     @Override
@@ -130,8 +130,10 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
             if (mBitmap == null)
                 return;
 
-            StudyNode example = new StudyNode(this, mBitmap, mAnchor);
-            mAnchor.addChild(example);
+            AnchorNode anchorNode = new AnchorNode(hitResult.createAnchor());
+            anchorNode.setParent(uxArFragment.getArSceneView().getScene());
+            StudyNode example = new StudyNode(this, mBitmap, anchorNode);
+            anchorNode.addChild(example);
             mStudyNodes.add(example);
 
             // Update network
@@ -181,9 +183,11 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
 
         // If we are not updating, then we are placing a new node
         if (lastSelectedNode == null) {
+            Log.d(TAG, "Placing a new node");
             mBitmap = receivedBitmap;
             updateSnackBar(SnackbarState.PLACING);
         } else {
+            Log.d(TAG, "Calling onReceiveBitmap: " + receivedBitmap);
             lastSelectedNode.onReceiveBitmap(receivedBitmap);
             lastSelectedNode = null;
         }
@@ -211,9 +215,9 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
     }
 
     public void clearObjects(boolean sendPacket) {
-        for (StudyNode studyNode : mStudyNodes) {
-            mAnchor.removeChild(studyNode);
-        }
+        for (StudyNode studyNode : mStudyNodes)
+            studyNode.delete();
+
         mStudyNodes.clear();
 
         if (sendPacket) {

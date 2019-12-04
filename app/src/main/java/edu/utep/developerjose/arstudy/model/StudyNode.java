@@ -49,7 +49,7 @@ public class StudyNode extends Node {
 
         View objectView = mDisplayRenderable.getView();
         ImageView imageView = objectView.findViewById(R.id.uxImage);
-        imageView.setImageBitmap(mBitmap);
+        imageView.setImageBitmap(selectedImage);
     }
 
     @Override
@@ -149,12 +149,8 @@ public class StudyNode extends Node {
 
         Button btnDelete = objectView.findViewById(R.id.uxBtnDelete);
         btnDelete.setOnClickListener((btnView) -> {
-            mParentAnchor.removeChild(this);
-        });
-
-        Button btnResetScaling = objectView.findViewById(R.id.uxBtnResetScale);
-        btnResetScaling.setOnClickListener((btnView) -> {
-            mDisplayNode.setLocalScale(new Vector3(SCALE, SCALE, SCALE));
+            delete();
+            mActivity.mStudyNodes.remove(this);
         });
 
         Switch switchMove = objectView.findViewById(R.id.uxSwitchMove);
@@ -171,5 +167,19 @@ public class StudyNode extends Node {
         switchRotation.setOnCheckedChangeListener((btnView, isChecked) -> {
             mDisplayNode.getRotationController().setEnabled(isChecked);
         });
+
+        Button btnResetScaling = objectView.findViewById(R.id.uxBtnResetScale);
+        btnResetScaling.setOnClickListener((btnView) -> {
+            mDisplayNode.setLocalScale(new Vector3(SCALE, SCALE, SCALE));
+            switchScale.setChecked(false);
+            mDisplayNode.getScaleController().setEnabled(false);
+        });
+    }
+
+    public void delete(){
+        Log.d(TAG, "Delete");
+        mDisplayNode.getParent().removeChild(mDisplayNode);
+        mInfoNode.getParent().removeChild(mInfoNode);
+        getParent().removeChild(this);
     }
 }
