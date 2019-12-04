@@ -1,4 +1,4 @@
-package edu.utep.developerjose.arstudy;
+package edu.utep.developerjose.arstudy.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

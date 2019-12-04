@@ -12,6 +12,8 @@ public class ConnectionThread extends Thread {
     private Socket clientSocket;
 
     public ConnectionThread(Socket clientSocket) {
+        NetManager.broadcastConnect();
+        NetManager.isRunning = true;
         this.clientSocket = clientSocket;
         new ReceivingThread(clientSocket).start();
         new SendingThread(clientSocket).start();
@@ -19,8 +21,6 @@ public class ConnectionThread extends Thread {
 
     @Override
     public void run() {
-        NetManager.broadcastConnect();
-        NetManager.isRunning = true;
         try {
             while (true) {
                 if (!NetManager.isRunning)
@@ -34,6 +34,7 @@ public class ConnectionThread extends Thread {
                     clientSocket.close();
                 NetManager.broadcastDisconnect();
                 NetManager.isRunning = false;
+                Log.d(TAG, "Closed connection thread");
             } catch (IOException ex) {
                 Log.d(TAG, "Error while closing socket " + ex.getMessage());
             }

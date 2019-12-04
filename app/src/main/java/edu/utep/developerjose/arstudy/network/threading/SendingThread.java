@@ -44,6 +44,7 @@ public class SendingThread extends Thread {
                     clientSocket.close();
                 if (outputStream != null)
                     outputStream.close();
+                Log.d(TAG, "Closed sending thread");
             } catch (IOException ex) {
                 Log.d(TAG, "Error while closing receiving socket " + ex.getMessage());
             }

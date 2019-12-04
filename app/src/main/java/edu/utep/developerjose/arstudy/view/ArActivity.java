@@ -1,4 +1,4 @@
-package edu.utep.developerjose.arstudy;
+package edu.utep.developerjose.arstudy.view;
 
 import android.Manifest;
 import android.app.Activity;
@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.utep.developerjose.arstudy.R;
 import edu.utep.developerjose.arstudy.model.StudyNode;
 import edu.utep.developerjose.arstudy.network.NetInterface;
 import edu.utep.developerjose.arstudy.network.NetManager;
@@ -122,9 +123,6 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
 
                 setSupportActionBar(uxToolbar);
                 updateSnackBar(SnackbarState.HIDING);
-
-                // Begin listening for network events
-                NetManager.addListener(this);
                 return;
             }
 
@@ -143,6 +141,8 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
             mBitmap = null;
             updateSnackBar(SnackbarState.HIDING);
         });
+
+        NetManager.addListener(this);
     }
 
     @Override
@@ -229,10 +229,10 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
         Button uxSendMessage = mDialogView.findViewById(R.id.uxSendMessage);
         TextView uxChatLog = mDialogView.findViewById(R.id.uxChatLog);
 
-        uxChatLog.setText(mChatLog);
+        uxChatLog.setText(Html.fromHtml(mChatLog, Html.FROM_HTML_MODE_LEGACY));
         uxSendMessage.setOnClickListener((view) -> {
             String message = uxMessage.getText().toString();
-            String format = "<font color=\"red\">Friend</font>" + ":" + message + "\n";
+            String format = "<font color=\"green\">You</font>" + ":" + message + "<br>";
             mChatLog += format;
 
             uxChatLog.setText(Html.fromHtml(mChatLog, Html.FROM_HTML_MODE_LEGACY));
@@ -246,6 +246,12 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
                     mDialogView = null;
                 })
                 .create().show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetManager.isRunning = false;
     }
 
     @Override
@@ -303,7 +309,7 @@ public class ArActivity extends AppCompatActivity implements NetInterface {
 
     private void processPacketMessage(PacketMessage p) {
         String message = p.mStrMessage;
-        String format = "<font color=\"red\">Friend</font>" + ":" + message + "\n";
+        String format = "<font color=\"red\">Friend</font>" + ":" + message + "<br>";
         mChatLog += format;
 
         Toast.makeText(this, "Received message from your friend", Toast.LENGTH_LONG).show();

@@ -18,13 +18,12 @@ import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
-import edu.utep.developerjose.arstudy.ArActivity;
-import edu.utep.developerjose.arstudy.MainActivity;
+import edu.utep.developerjose.arstudy.view.ArActivity;
 import edu.utep.developerjose.arstudy.R;
 
 public class StudyNode extends Node {
     private static final String TAG = "ARStudy-StudyNode";
-    private static final float INFO_CARD_Y_POS_COEFF = 0.55f;
+    private static final float INFO_CARD_Y_POS_COEFF = 0.3f;
     private static final float SCALE = 0.25f;
 
     public TransformableNode mDisplayNode;

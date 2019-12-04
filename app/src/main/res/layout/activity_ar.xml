@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ArActivity">
+    tools:context=".view.ArActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/uxToolbar"
@@ -21,7 +21,7 @@
         android:id="@+id/uxTopSnackBar" />
 
     <fragment
-        android:name="edu.utep.developerjose.arstudy.ExtendedArFragment"
+        android:name="edu.utep.developerjose.arstudy.view.ExtendedArFragment"
         android:id="@+id/uxFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

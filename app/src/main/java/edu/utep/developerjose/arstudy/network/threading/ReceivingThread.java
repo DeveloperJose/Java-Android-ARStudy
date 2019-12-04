@@ -27,6 +27,7 @@ public class ReceivingThread extends Thread {
                 if (!NetManager.isRunning)
                     break;
 
+                Log.d(TAG, "Waiting for packet");
                 Packet input = Packet.read(inputStream);
                 NetManager.broadcastData(input);
                 Log.d(TAG, "Received packet ID: " + input.ID);
@@ -39,8 +40,7 @@ public class ReceivingThread extends Thread {
                     clientSocket.close();
                 if (inputStream != null)
                     inputStream.close();
-                NetManager.broadcastDisconnect();
-                NetManager.isRunning = false;
+                Log.d(TAG, "Closed receiving thread");
             } catch (IOException ex) {
                 Log.d(TAG, "Error while closing receiving socket " + ex.getMessage());
             }

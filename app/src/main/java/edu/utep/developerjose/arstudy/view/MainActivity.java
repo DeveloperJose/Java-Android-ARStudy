@@ -1,4 +1,4 @@
-package edu.utep.developerjose.arstudy;
+package edu.utep.developerjose.arstudy.view;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -31,6 +31,7 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import edu.utep.developerjose.arstudy.R;
 import edu.utep.developerjose.arstudy.network.NetInterface;
 import edu.utep.developerjose.arstudy.network.NetManager;
 import edu.utep.developerjose.arstudy.network.data.Packet;
