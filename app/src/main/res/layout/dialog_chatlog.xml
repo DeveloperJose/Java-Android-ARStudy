@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="CHAT LOG" />
+
+    <TextView
+        android:id="@+id/uxChatLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:scrollbars="horizontal|vertical" />
+
+    <EditText
+        android:id="@+id/uxMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Type your message here"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/uxSendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Message" />
+</LinearLayout>
